@@ -1,0 +1,16 @@
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\obj\Debug\netcoreapp2.2\EFCommands.csprojAssemblyReference.cache
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\obj\Debug\netcoreapp2.2\EFCommands.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\obj\Debug\netcoreapp2.2\EFCommands.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\obj\Debug\netcoreapp2.2\EFCommands.AssemblyInfo.cs
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\bin\Debug\netcoreapp2.2\EFCommands.deps.json
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\bin\Debug\netcoreapp2.2\EFCommands.dll
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\bin\Debug\netcoreapp2.2\EFCommands.pdb
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\bin\Debug\netcoreapp2.2\Application.dll
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\bin\Debug\netcoreapp2.2\Domain.dll
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\bin\Debug\netcoreapp2.2\EFDataAccess.dll
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\bin\Debug\netcoreapp2.2\Application.pdb
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\bin\Debug\netcoreapp2.2\EFDataAccess.pdb
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\bin\Debug\netcoreapp2.2\Domain.pdb
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\obj\Debug\netcoreapp2.2\EFCommands.csproj.CopyComplete
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\obj\Debug\netcoreapp2.2\EFCommands.dll
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\obj\Debug\netcoreapp2.2\EFCommands.pdb
