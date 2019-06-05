@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.Commands.DrinkCommand;
 using Application.DTO.CreateDTO;
 using Application.Exceptions;
+using Application.Searches;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,26 +17,48 @@ namespace API.Controllers
     {
         private IDrinkCreateCommand _createDrinkCommand;
         private IDeleteDrinkCommand _deleteDrinkCommand;
+        private IEditDrinkCommand _editDrinkCommand;
+        private IGetDrinksCommand _getDrinksCommand;
+        private IGetDrinkCommand _getDrinkCommand;
 
-        public DrinkController(IDrinkCreateCommand createDrinkCommand, IDeleteDrinkCommand deleteDrinkCommand)
+        public DrinkController(IDrinkCreateCommand createDrinkCommand, IDeleteDrinkCommand deleteDrinkCommand, IEditDrinkCommand editDrinkCommand, IGetDrinksCommand getDrinksCommand, IGetDrinkCommand getDrinkCommand)
         {
             _createDrinkCommand = createDrinkCommand;
             _deleteDrinkCommand = deleteDrinkCommand;
+            _editDrinkCommand = editDrinkCommand;
+            _getDrinksCommand = getDrinksCommand;
+            _getDrinkCommand = getDrinkCommand;
         }
-
 
         // GET: api/Drink
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery] DrinkSearch drinkSearch)
         {
-            return Ok("Radi");
+            try
+            {
+               var search = _getDrinksCommand.Execute(drinkSearch);
+                return Ok(search);
+            }catch(Exception)
+            {
+                return StatusCode(500, "Server error, try later");
+            }
         }
 
         // GET: api/Drink/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            try
+            {
+                var drink = _getDrinkCommand.Execute(id);
+                return Ok(drink);
+            }catch(NotFoundException)
+            {
+                return NotFound();
+            }catch(Exception)
+            {
+                return StatusCode(500, "Server error, try later");
+            }
         }
 
         // POST: api/Drink
@@ -63,8 +86,25 @@ namespace API.Controllers
 
         // PUT: api/Drink/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id,[FromBody] CreateDrinkDTO value)
         {
+            try
+            {
+                _editDrinkCommand.Execute(value);
+                return NoContent();
+            }catch(AlredyExistException)
+            {
+                return StatusCode(409, "Drink name Alredy Exist");
+            }catch(DataCanNotBeNull)
+            {
+                return StatusCode(409, "Price can not be null");
+            }catch(NotFoundException)
+            {
+                return NotFound();
+            }catch(Exception)
+            {
+                return StatusCode(500, "Server error, try later");
+            }
         }
 
         // DELETE: api/ApiWithActions/5
@@ -74,7 +114,7 @@ namespace API.Controllers
             try
             {
                 _deleteDrinkCommand.Execute(id);
-                return StatusCode(204, "Drink is deleted");
+                return NoContent();
             }
             catch (NotFoundException)
             {

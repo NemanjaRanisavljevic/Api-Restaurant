@@ -33,6 +33,9 @@ namespace API
 
             services.AddTransient<IDrinkCreateCommand, EFCreateDrinkCommand>();
             services.AddTransient<IDeleteDrinkCommand, EFDeleteDrinkCommand>();
+            services.AddTransient<IEditDrinkCommand, EFEditDrinkCommand>();
+            services.AddTransient<IGetDrinksCommand, EFGetDrinksCommand>();
+            services.AddTransient<IGetDrinkCommand, EFGetDrinkCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

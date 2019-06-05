@@ -7,6 +7,7 @@ namespace Application.DTO.CreateDTO
 {
     public class CreateDrinkDTO
     {
+        public int Id { get; set; }
         [Required(ErrorMessage ="Name of drink is required")]
         [MinLength(3,ErrorMessage ="Name of drink can not be short than 3")]
         [MaxLength(20,ErrorMessage = "Name of drink can not be loger than 20")]
