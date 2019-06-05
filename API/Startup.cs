@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Commands.DrinkCommand;
+using Application.Commands.RoleCommand;
 using EFCommands.EFDrinkCommand;
+using EFCommands.EFRolleCommand;
 using EFDataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,11 +33,21 @@ namespace API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<DBContext>();
 
+            #region Drink
             services.AddTransient<IDrinkCreateCommand, EFCreateDrinkCommand>();
             services.AddTransient<IDeleteDrinkCommand, EFDeleteDrinkCommand>();
             services.AddTransient<IEditDrinkCommand, EFEditDrinkCommand>();
             services.AddTransient<IGetDrinksCommand, EFGetDrinksCommand>();
             services.AddTransient<IGetDrinkCommand, EFGetDrinkCommand>();
+            #endregion
+
+            #region Role
+            services.AddTransient<IAddRolleCommand, EFAddRolleCommand>();
+            services.AddTransient<IGetRolesCommand, EFGetRolesCommand>();
+            services.AddTransient<IGetRoleCommand, EFGetRoleCommand>();
+            services.AddTransient<IEditRoleCommand, EFEditRoleCommand>();
+            services.AddTransient<IDeleteRoleCommand, EFDeleteRoleCommand>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -36,6 +36,10 @@ namespace EFCommands.EFDrinkCommand
             {
                 query = query.Where(d => d.Price <= request.MinPrice);
             }
+            if (request.Id.HasValue)
+            {
+                query = query.Where(d => d.Id == request.Id);
+            }
 
             return query
                 .Select(d => new CreateDrinkDTO {
