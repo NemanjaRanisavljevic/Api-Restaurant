@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Application.Commands.DrinkCommand;
+using Application.Commands.Response;
 using Application.DTO.CreateDTO;
 using Application.Searches;
 using EFDataAccess;
@@ -15,11 +16,11 @@ namespace EFCommands.EFDrinkCommand
         {
         }
 
-        public IEnumerable<CreateDrinkDTO> Execute(DrinkSearch request)
+        public PagedResponse<CreateDrinkDTO> Execute(DrinkSearch request)
         {
             var query = _context.Drinks.AsQueryable();
 
-            if(request.DrinkName != null)
+            if (request.DrinkName != null)
             {
                 var drinName = request.DrinkName.ToLower();
 
@@ -27,12 +28,12 @@ namespace EFCommands.EFDrinkCommand
 
             }
 
-            if(request.MaxPrice.HasValue)
+            if (request.MaxPrice.HasValue)
             {
                 query = query.Where(d => d.Price >= request.MaxPrice);
             }
 
-            if(request.MinPrice.HasValue)
+            if (request.MinPrice.HasValue)
             {
                 query = query.Where(d => d.Price <= request.MinPrice);
             }
@@ -41,12 +42,29 @@ namespace EFCommands.EFDrinkCommand
                 query = query.Where(d => d.Id == request.Id);
             }
 
-            return query
-                .Select(d => new CreateDrinkDTO {
-                Id = d.Id,
-                DrinkName = d.DrinkName,
-                Price = d.Price
-            });
+            var TotalCount = query.Count();
+
+            query = query
+                .Skip((request.PageNumber - 1) * request.PerPage)
+                .Take(request.PerPage);
+              
+            var pageCount = (int)Math.Ceiling((double)TotalCount / request.PerPage);
+
+            var response = new PagedResponse<CreateDrinkDTO>
+            {
+                CurrentPage = request.PageNumber,
+                TotalCount = TotalCount,
+                PageCount = pageCount,
+                Data = query
+                .Select(d => new CreateDrinkDTO
+                {
+                    Id = d.Id,
+                    DrinkName = d.DrinkName,
+                    Price = d.Price
+                })
+        };
+
+            return response;
         }
     }
 }

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Commands.DrinkCommand;
 using Application.Commands.RoleCommand;
+using Application.Commands.UserCommand;
 using EFCommands.EFDrinkCommand;
 using EFCommands.EFRolleCommand;
+using EFCommands.EFUserCommand;
 using EFDataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,6 +49,14 @@ namespace API
             services.AddTransient<IGetRoleCommand, EFGetRoleCommand>();
             services.AddTransient<IEditRoleCommand, EFEditRoleCommand>();
             services.AddTransient<IDeleteRoleCommand, EFDeleteRoleCommand>();
+            #endregion
+
+            #region User
+            services.AddTransient<IAddUserCommand, EFAddUserCommand>();
+            services.AddTransient<IDeleteUserCommand, EFDeleteUserCommand>();
+            services.AddTransient<IGetUserCommand, EFGetUserCommand>();
+            services.AddTransient<IEditUserCommand, EFEditUserCommand>();
+            services.AddTransient<IGetUsersCommand, EFGetUsersCommand>();
             #endregion
         }
 

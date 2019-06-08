@@ -1,4 +1,5 @@
-﻿using Application.DTO.CreateDTO;
+﻿using Application.Commands.Response;
+using Application.DTO.CreateDTO;
 using Application.Interfaces;
 using Application.Searches;
 using System;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace Application.Commands.DrinkCommand
 {
-    public interface IGetDrinksCommand:ICommand<DrinkSearch,IEnumerable<CreateDrinkDTO>>
+    public interface IGetDrinksCommand:ICommand<DrinkSearch,PagedResponse<CreateDrinkDTO>>
     {
     }
 }
