@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Commands.DrinkCommand;
+using Application.Commands.ImpressionCommand;
+using Application.Commands.ReservationCommand;
 using Application.Commands.RoleCommand;
 using Application.Commands.UserCommand;
 using EFCommands.EFDrinkCommand;
+using EFCommands.EFImpressionCommand;
+using EFCommands.EFReservationCommand;
 using EFCommands.EFRolleCommand;
 using EFCommands.EFUserCommand;
 using EFDataAccess;
@@ -57,6 +61,20 @@ namespace API
             services.AddTransient<IGetUserCommand, EFGetUserCommand>();
             services.AddTransient<IEditUserCommand, EFEditUserCommand>();
             services.AddTransient<IGetUsersCommand, EFGetUsersCommand>();
+            #endregion
+
+            #region Impression
+            services.AddTransient<IAddImpresssionCommand, EFAddImpressionCommand>();
+            services.AddTransient<IDeleteImpressionCommand, EFDeleteImpressionCommand>();
+            services.AddTransient<IGetImpressionCommand, EFGetImpressionCommand>();
+            services.AddTransient<IEditImpressionCommand, EFEditImpressionCommand>();
+            services.AddTransient<IGetImpressionsCommand, EFGetImpressionsCommand>();
+            #endregion
+
+            #region Reservation
+            services.AddTransient<IAddReservationCommmand, EFAddReservationCommand>();
+            services.AddTransient<IDeleteReservationCommand, EFDeleteReservationCommand>();
+            services.AddTransient<IGetReservationCommand, EFGetReservationCommand>();
             #endregion
         }
 

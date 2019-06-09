@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Application.Commands.DrinkCommand;
-using Application.Commands.Response;
 using Application.DTO.CreateDTO;
+using Application.Responsed;
 using Application.Searches;
 using EFDataAccess;
 
@@ -16,7 +16,7 @@ namespace EFCommands.EFDrinkCommand
         {
         }
 
-        public PagedResponse<CreateDrinkDTO> Execute(DrinkSearch request)
+        public PagedRespone<CreateDrinkDTO> Execute(DrinkSearch request)
         {
             var query = _context.Drinks.AsQueryable();
 
@@ -50,7 +50,7 @@ namespace EFCommands.EFDrinkCommand
               
             var pageCount = (int)Math.Ceiling((double)TotalCount / request.PerPage);
 
-            var response = new PagedResponse<CreateDrinkDTO>
+            var response = new PagedRespone<CreateDrinkDTO>
             {
                 CurrentPage = request.PageNumber,
                 TotalCount = TotalCount,

@@ -1,6 +1,6 @@
-﻿using Application.Commands.Response;
-using Application.Commands.UserCommand;
+﻿using Application.Commands.UserCommand;
 using Application.DTO;
+using Application.Responsed;
 using Application.Searches;
 using EFDataAccess;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +17,7 @@ namespace EFCommands.EFUserCommand
         {
         }
 
-        public PagedResponse<UserSearchDTO> Execute(UserSearch request)
+        public PagedRespone<UserSearchDTO> Execute(UserSearch request)
         {
 
             var query = _context.Users.AsQueryable();
@@ -45,7 +45,7 @@ namespace EFCommands.EFUserCommand
 
             var pageCount = (int)Math.Ceiling((double)totalCount / request.PerPage);
 
-            var response = new PagedResponse<UserSearchDTO>
+            var response = new PagedRespone<UserSearchDTO>
             {
 
                 CurrentPage = request.PageNumber,
