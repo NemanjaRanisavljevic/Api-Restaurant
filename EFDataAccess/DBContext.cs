@@ -15,10 +15,10 @@ namespace EFDataAccess
 
         public DbSet<Meni> Menis { get; set; }
         public DbSet<Meal> Meals { get; set; }
-        public DbSet<MeniMeal> MeniMeals { get; set; }
 
         public DbSet<Impression> Impressions { get; set; }
         public DbSet<Drink> Drinks { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,10 +31,10 @@ namespace EFDataAccess
             modelBuilder.ApplyConfiguration(new ImpressionConfiguration());
             modelBuilder.ApplyConfiguration(new MealConfiguration());
             modelBuilder.ApplyConfiguration(new MeniConfiguration());
-            modelBuilder.ApplyConfiguration(new MeniMealConfiguration());
             modelBuilder.ApplyConfiguration(new ReservationConfiguration());
             modelBuilder.ApplyConfiguration(new RuleConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new ImageConfiguration());
 
         }
     }

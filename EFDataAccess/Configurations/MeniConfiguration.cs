@@ -21,10 +21,7 @@ namespace EFDataAccess.Configurations
             builder.Property(m => m.Price)
                .IsRequired();
 
-            builder.HasMany(m => m.MeniMeals)
-                .WithOne(mm => mm.Meni)
-                .HasForeignKey(mm => mm.MeniId)
-                .OnDelete(DeleteBehavior.Cascade);
+            
 
             builder.Property(u => u.CreateAt).HasDefaultValueSql("GETDATE()");
             builder.Property(u => u.ModifieAt).HasDefaultValueSql("GETDATE()");

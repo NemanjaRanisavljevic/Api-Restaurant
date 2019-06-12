@@ -10,6 +10,6 @@ namespace Domain
         public string Start { get; set; }
         public string Finish { get; set; }
 
-        public ICollection<MeniMeal> MeniMeals { get; set; }
+        public ICollection<Meni> Menis { get; set; }
     }
 }

@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Application.Commands.DrinkCommand;
 using Application.Commands.ImpressionCommand;
 using Application.Commands.MealCommand;
+using Application.Commands.MeniCommand;
 using Application.Commands.ReservationCommand;
 using Application.Commands.RoleCommand;
 using Application.Commands.UserCommand;
 using EFCommands.EFDrinkCommand;
 using EFCommands.EFImpressionCommand;
 using EFCommands.EFMealCommand;
+using EFCommands.EFMeniCommand;
 using EFCommands.EFReservationCommand;
 using EFCommands.EFRolleCommand;
 using EFCommands.EFUserCommand;
@@ -87,7 +89,11 @@ namespace API
             services.AddTransient<IGetMealsCommand, EFGetMealsCommand>();
             services.AddTransient<IEditMealCommand, EFEditMealCommand>();
 
-            
+
+            services.AddTransient<IAddMeniCommand, EFAddMeniCommand>();
+            services.AddTransient<IGetMeniCommand, EFGetMeniCommand>();
+            services.AddTransient<IGetMeniesCommand, EFGetMeniesCommand>();
+    
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -105,6 +111,7 @@ namespace API
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseStaticFiles();
         }
     }
 }

@@ -48,6 +48,24 @@ namespace EFDataAccess.Migrations
                     b.ToTable("Drinks");
                 });
 
+            modelBuilder.Entity("Domain.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Alt")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Putanja")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("Domain.Impression", b =>
                 {
                     b.Property<int>("Id")
@@ -121,12 +139,16 @@ namespace EFDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<int>("ImageId");
+
                     b.Property<string>("Ingrediant")
                         .IsRequired();
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(false);
+
+                    b.Property<int>("MealId");
 
                     b.Property<DateTime?>("ModifieAt")
                         .ValueGeneratedOnAdd()
@@ -141,22 +163,11 @@ namespace EFDataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Menis");
-                });
-
-            modelBuilder.Entity("Domain.MeniMeal", b =>
-                {
-                    b.Property<int>("MeniId");
-
-                    b.Property<int>("MealId");
-
-                    b.Property<int>("Id");
-
-                    b.HasKey("MeniId", "MealId");
+                    b.HasIndex("ImageId");
 
                     b.HasIndex("MealId");
 
-                    b.ToTable("MeniMeals");
+                    b.ToTable("Menis");
                 });
 
             modelBuilder.Entity("Domain.Reservation", b =>
@@ -279,16 +290,16 @@ namespace EFDataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Domain.MeniMeal", b =>
+            modelBuilder.Entity("Domain.Meni", b =>
                 {
-                    b.HasOne("Domain.Meal", "Meal")
-                        .WithMany("MeniMeals")
-                        .HasForeignKey("MealId")
+                    b.HasOne("Domain.Image", "Image")
+                        .WithMany("Menis")
+                        .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Domain.Meni", "Meni")
-                        .WithMany("MeniMeals")
-                        .HasForeignKey("MeniId")
+                    b.HasOne("Domain.Meal", "Meal")
+                        .WithMany("Menis")
+                        .HasForeignKey("MealId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
