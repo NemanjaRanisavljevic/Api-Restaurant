@@ -20,6 +20,7 @@ namespace API.Controllers
         private IGetUserCommand _getUserCommand;
         private IEditUserCommand _editUserCommand;
         private IGetUsersCommand _getUsersCommand;
+        
 
         public UserController(IAddUserCommand addUserCommand, 
             IDeleteUserCommand deleteUserCommand, 

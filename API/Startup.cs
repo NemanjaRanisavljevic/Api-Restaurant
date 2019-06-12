@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Commands.DrinkCommand;
 using Application.Commands.ImpressionCommand;
+using Application.Commands.MealCommand;
 using Application.Commands.ReservationCommand;
 using Application.Commands.RoleCommand;
 using Application.Commands.UserCommand;
 using EFCommands.EFDrinkCommand;
 using EFCommands.EFImpressionCommand;
+using EFCommands.EFMealCommand;
 using EFCommands.EFReservationCommand;
 using EFCommands.EFRolleCommand;
 using EFCommands.EFUserCommand;
@@ -39,43 +41,53 @@ namespace API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<DBContext>();
 
-            #region Drink
+            
             services.AddTransient<IDrinkCreateCommand, EFCreateDrinkCommand>();
             services.AddTransient<IDeleteDrinkCommand, EFDeleteDrinkCommand>();
             services.AddTransient<IEditDrinkCommand, EFEditDrinkCommand>();
             services.AddTransient<IGetDrinksCommand, EFGetDrinksCommand>();
             services.AddTransient<IGetDrinkCommand, EFGetDrinkCommand>();
-            #endregion
+            
 
-            #region Role
+            
             services.AddTransient<IAddRolleCommand, EFAddRolleCommand>();
             services.AddTransient<IGetRolesCommand, EFGetRolesCommand>();
             services.AddTransient<IGetRoleCommand, EFGetRoleCommand>();
             services.AddTransient<IEditRoleCommand, EFEditRoleCommand>();
             services.AddTransient<IDeleteRoleCommand, EFDeleteRoleCommand>();
-            #endregion
+            
 
-            #region User
+            
             services.AddTransient<IAddUserCommand, EFAddUserCommand>();
             services.AddTransient<IDeleteUserCommand, EFDeleteUserCommand>();
             services.AddTransient<IGetUserCommand, EFGetUserCommand>();
             services.AddTransient<IEditUserCommand, EFEditUserCommand>();
             services.AddTransient<IGetUsersCommand, EFGetUsersCommand>();
-            #endregion
+            
 
-            #region Impression
+            
             services.AddTransient<IAddImpresssionCommand, EFAddImpressionCommand>();
             services.AddTransient<IDeleteImpressionCommand, EFDeleteImpressionCommand>();
             services.AddTransient<IGetImpressionCommand, EFGetImpressionCommand>();
             services.AddTransient<IEditImpressionCommand, EFEditImpressionCommand>();
             services.AddTransient<IGetImpressionsCommand, EFGetImpressionsCommand>();
-            #endregion
+            
 
-            #region Reservation
+            
             services.AddTransient<IAddReservationCommmand, EFAddReservationCommand>();
             services.AddTransient<IDeleteReservationCommand, EFDeleteReservationCommand>();
             services.AddTransient<IGetReservationCommand, EFGetReservationCommand>();
-            #endregion
+            services.AddTransient<IEditReservationCommand, EFEditReservationCommand>();
+            services.AddTransient<IGetReservationsCommand, EFGetReservationsCommand>();
+
+
+            services.AddTransient<IAddMealCommand, EFAddMealCommand>();
+            services.AddTransient<IDeleteMealCommand, EFDeleteMealCommand>();
+            services.AddTransient<IGetMealCommand, EFGetMealCommand>();
+            services.AddTransient<IGetMealsCommand, EFGetMealsCommand>();
+            services.AddTransient<IEditMealCommand, EFEditMealCommand>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

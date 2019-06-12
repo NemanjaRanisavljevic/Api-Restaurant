@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Application.Commands.UserCommand
 {
-   public interface IGetUsersCommand : ICommand<UserSearch, PagedRespone<UserSearchDTO>>
+   public interface IGetUsersCommand : ICommand<UserSearch, PagedRespone<UserOnlySearchDTO>>
     {
     }
 }

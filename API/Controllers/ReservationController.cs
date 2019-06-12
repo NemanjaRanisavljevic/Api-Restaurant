@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Commands.ReservationCommand;
 using Application.DTO;
+using Application.DTO.Reservation;
 using Application.Exceptions;
+using Application.Searches;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,21 +19,34 @@ namespace API.Controllers
         private IAddReservationCommmand _addReservationCommand;
         private IDeleteReservationCommand _deleteReservationCommand;
         private IGetReservationCommand _getReservationCommand;
+        private IEditReservationCommand _editReservationCommand;
+        private IGetReservationsCommand _getReservationsCommmand;
 
-        public ReservationController(IAddReservationCommmand addReservationCommand, IDeleteReservationCommand deleteReservationCommand, IGetReservationCommand getReservationCommand)
+        public ReservationController(IAddReservationCommmand addReservationCommand, IDeleteReservationCommand deleteReservationCommand, IGetReservationCommand getReservationCommand, IEditReservationCommand editReservationCommand, IGetReservationsCommand getReservationsCommmand)
         {
             _addReservationCommand = addReservationCommand;
             _deleteReservationCommand = deleteReservationCommand;
             _getReservationCommand = getReservationCommand;
+            _editReservationCommand = editReservationCommand;
+            _getReservationsCommmand = getReservationsCommmand;
         }
+
 
 
 
         // GET: api/Reservation
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get([FromQuery] ReservationSearch request)
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var response = _getReservationsCommmand.Execute(request);
+                return Ok(response);
+            }
+            catch
+            {
+                return StatusCode(500, "Server error, try later");
+            }
         }
 
         // GET: api/Reservation/5
@@ -74,8 +89,24 @@ namespace API.Controllers
 
         // PUT: api/Reservation/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] ReservationEditDTO value)
         {
+            try
+            {
+                _editReservationCommand.Execute(value);
+                return NoContent();
+            }catch(AlredyExistException)
+            {
+                return StatusCode(422, "Any of parameters alredy exit value");
+
+            }
+            catch(NotFoundException)
+            {
+                return NotFound();
+            }catch(Exception)
+            {
+                return StatusCode(500, "Server error, try later");
+            }
         }
 
         // DELETE: api/ApiWithActions/5

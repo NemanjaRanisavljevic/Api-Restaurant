@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.Commands.UserCommand
 {
-    public interface IGetUserCommand : ICommand<int,IEnumerable<UserSearchDTO>>
+    public interface IGetUserCommand : ICommand<int,IEnumerable<UserOnlySearchDTO>>
     {
     }
 }

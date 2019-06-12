@@ -17,9 +17,8 @@ namespace EFCommands.EFUserCommand
         {
         }
 
-        public PagedRespone<UserSearchDTO> Execute(UserSearch request)
+        public PagedRespone<UserOnlySearchDTO> Execute(UserSearch request)
         {
-
             var query = _context.Users.AsQueryable();
 
             if (request.Name != null)
@@ -45,24 +44,23 @@ namespace EFCommands.EFUserCommand
 
             var pageCount = (int)Math.Ceiling((double)totalCount / request.PerPage);
 
-            var response = new PagedRespone<UserSearchDTO>
+            var response = new PagedRespone<UserOnlySearchDTO>
             {
 
                 CurrentPage = request.PageNumber,
                 TotalCount = totalCount,
                 PageCount = pageCount,
                 Data = query.Include(r => r.Role)
-                .Select(u => new UserSearchDTO {
+                .Select(u => new UserOnlySearchDTO
+                {
                     Id = u.Id,
                     Name = u.Name,
                     Surname = u.Surname,
                     Email = u.Email,
-                    Password = u.Password,
-                    RoleId = u.RoleId,
                     RoleName = u.Role.NameRole,
                     IsDelete = u.IsDeleted
                 })
-                
+
             };
             return response;
         }

@@ -16,28 +16,27 @@ namespace EFCommands.EFUserCommand
         {
         }
 
-        public IEnumerable<UserSearchDTO> Execute(int id)
+        public IEnumerable<UserOnlySearchDTO> Execute(int id)
         {
             var query = _context.Users.AsQueryable();
 
             if (_context.Users.Any(u => u.Id == id))
             {
                 query = query.Where(u => u.Id == id);
-            }else
+            }
+            else
             {
                 throw new NotFoundException();
             }
 
             return query
                 .Include(r => r.Role)
-                .Select(u => new UserSearchDTO
+                .Select(u => new UserOnlySearchDTO
                 {
                     Id = u.Id,
                     Name = u.Name,
                     Surname = u.Surname,
-                    Password = u.Password,
                     Email = u.Email,
-                    RoleId = u.RoleId,
                     RoleName = u.Role.NameRole,
                     IsDelete = u.IsDeleted
                 });
