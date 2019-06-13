@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.ForEncript;
 using Application.Commands.DrinkCommand;
 using Application.Commands.ImpressionCommand;
 using Application.Commands.MealCommand;
@@ -9,6 +10,7 @@ using Application.Commands.MeniCommand;
 using Application.Commands.ReservationCommand;
 using Application.Commands.RoleCommand;
 using Application.Commands.UserCommand;
+using Application.Helpers;
 using EFCommands.EFDrinkCommand;
 using EFCommands.EFImpressionCommand;
 using EFCommands.EFMealCommand;
@@ -19,12 +21,15 @@ using EFCommands.EFUserCommand;
 using EFDataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace API
 {
@@ -93,7 +98,39 @@ namespace API
             services.AddTransient<IAddMeniCommand, EFAddMeniCommand>();
             services.AddTransient<IGetMeniCommand, EFGetMeniCommand>();
             services.AddTransient<IGetMeniesCommand, EFGetMeniesCommand>();
-    
+            services.AddTransient<IEditMeniCommand, EFEditMeniCommand>();
+            services.AddTransient<IDeleteMeniCommand, EFDeleteMenicommand>();
+
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IAuthUserCommand, EFAuthUserCommand>();
+
+            var key = Configuration.GetSection("Encryption")["key"];
+            var enc = new Encryption(key);
+            services.AddSingleton(enc);
+
+
+            services.AddTransient(s => {
+                var http = s.GetRequiredService<IHttpContextAccessor>();
+                var value = http.HttpContext.Request.Headers["Authorization"].ToString();
+                var encryption = s.GetRequiredService<Encryption>();
+
+                try
+                {
+                    var decodedString = encryption.DecryptString(value);
+                    decodedString = decodedString.Replace("\t", "");
+                    var user = JsonConvert.DeserializeObject<LoggedUser>(decodedString);
+                    user.IsLogged = true;
+                    return user;
+                }
+                catch (Exception)
+                {
+                    return new LoggedUser
+                    {
+                        IsLogged = false
+                    };
+                }
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

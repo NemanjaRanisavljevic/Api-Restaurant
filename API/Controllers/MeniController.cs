@@ -21,12 +21,20 @@ namespace API.Controllers
         private IAddMeniCommand _addMeniCommand;
         private IGetMeniCommand _getMeniCommand;
         private IGetMeniesCommand _getMeniesCommand;
+        private IEditMeniCommand _editMeniCommand;
+        private IDeleteMeniCommand _deleteMeniCommand;
 
-        public MeniController(IAddMeniCommand addMeniCommand, IGetMeniCommand getMeniCommand, IGetMeniesCommand getMeniesCommand)
+        public MeniController(IAddMeniCommand addMeniCommand, 
+            IGetMeniCommand getMeniCommand, 
+            IGetMeniesCommand getMeniesCommand, 
+            IEditMeniCommand editMeniCommand, 
+            IDeleteMeniCommand deleteMeniCommand)
         {
             _addMeniCommand = addMeniCommand;
             _getMeniCommand = getMeniCommand;
             _getMeniesCommand = getMeniesCommand;
+            _editMeniCommand = editMeniCommand;
+            _deleteMeniCommand = deleteMeniCommand;
         }
 
 
@@ -67,22 +75,24 @@ namespace API.Controllers
         [HttpPost]
         public IActionResult Post([FromForm] HttpSlikaDTO p)
         {
-            var ext = Path.GetExtension(p.Image.FileName); //daje ekstenziju .jpg
+            
+                var ext = Path.GetExtension(p.Image.FileName); //daje ekstenziju .jpg
 
-            if (!FileUpload.AllowExtensions.Contains(ext))
-            {
-                return UnprocessableEntity("Image extension is not allowed.");
-            }
+                if (!FileUpload.AllowExtensions.Contains(ext))
+                {
+                    return UnprocessableEntity("Image extension is not allowed.");
+                }
+            
 
             try
             {
-                var newFileName = Guid.NewGuid().ToString() + "_" + p.Image.FileName;//unique za ime fajla
+                  var newFileName = Guid.NewGuid().ToString() + "_" + p.Image.FileName;//unique za ime fajla
 
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", newFileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", newFileName);
 
-                p.Image.CopyTo(new FileStream(filePath, FileMode.Create));
-
-
+                    p.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+                
+                   
                 var dto = new MeniAddDTO
                 {
                     NameFood = p.NameFood,
@@ -111,14 +121,66 @@ namespace API.Controllers
 
         // PUT: api/Meni/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromForm] HttpSlikaUpdateDTO p)
         {
+            var ext = Path.GetExtension(p.Image.FileName); //daje ekstenziju .jpg
+
+            if (!FileUpload.AllowExtensions.Contains(ext))
+            {
+                return UnprocessableEntity("Image extension is not allowed.");
+            }
+
+            try
+            {
+                var newFileName = Guid.NewGuid().ToString() + "_" + p.Image.FileName;//unique za ime fajla
+
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", newFileName);
+
+                p.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+
+
+                var dto = new MeniAddDTO
+                {
+                    Id = p.Id,
+                    NameFood = p.NameFood,
+                    Ingradiant = p.Ingradiant,
+                    FileName = newFileName,
+                    Price = p.Price,
+                    MealId = p.MealId
+                };
+
+                _editMeniCommand.Execute(dto);
+                return NoContent();
+            }
+            catch (NotFoundException)
+            {
+                return StatusCode(404, "Meal id not found or id of meni");
+            }
+            catch (AlredyExistException)
+            {
+                return StatusCode(422, "Name of food alredy exist");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Server error try later");
+            }
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                _deleteMeniCommand.Execute(id);
+                return NoContent();
+            }catch(NotFoundException)
+            {
+                return NotFound();
+            }catch(Exception)
+            {
+                return StatusCode(500, "Server error try later");
+            }
         }
     }
 

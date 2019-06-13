@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.ForEncript;
 using Application.Commands.ImpressionCommand;
 using Application.DTO;
 using Application.Exceptions;
+using Application.Helpers;
 using Application.Searches;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,23 +22,23 @@ namespace API.Controllers
         private IGetImpressionCommand _getImpressionCommand;
         private IEditImpressionCommand _editImpressionCommand;
         private IGetImpressionsCommand _getImpressionsCommand;
+        private readonly LoggedUser _user;
 
-        public ImpressionController(IAddImpresssionCommand addImpressionCommand, 
-            IDeleteImpressionCommand deleteImpressionCommand, 
-            IGetImpressionCommand getImpressionCommand, 
-            IEditImpressionCommand editImpressionCommand, 
-            IGetImpressionsCommand getImpressionsCommand)
+        public ImpressionController(IAddImpresssionCommand addImpressionCommand, IDeleteImpressionCommand deleteImpressionCommand, IGetImpressionCommand getImpressionCommand, IEditImpressionCommand editImpressionCommand, IGetImpressionsCommand getImpressionsCommand, LoggedUser user)
         {
             _addImpressionCommand = addImpressionCommand;
             _deleteImpressionCommand = deleteImpressionCommand;
             _getImpressionCommand = getImpressionCommand;
             _editImpressionCommand = editImpressionCommand;
             _getImpressionsCommand = getImpressionsCommand;
+            _user = user;
         }
 
 
 
+
         // GET: api/Impression
+        [LoggedIn("Admin")]
         [HttpGet]
         public IActionResult Get([FromQuery] ImpressSearch request)
         {
