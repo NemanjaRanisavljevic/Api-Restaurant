@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Email;
 using API.ForEncript;
 using Application.Commands.DrinkCommand;
 using Application.Commands.ImpressionCommand;
@@ -11,6 +12,7 @@ using Application.Commands.ReservationCommand;
 using Application.Commands.RoleCommand;
 using Application.Commands.UserCommand;
 using Application.Helpers;
+using Application.Interfaces;
 using EFCommands.EFDrinkCommand;
 using EFCommands.EFImpressionCommand;
 using EFCommands.EFMealCommand;
@@ -101,9 +103,19 @@ namespace API
             services.AddTransient<IEditMeniCommand, EFEditMeniCommand>();
             services.AddTransient<IDeleteMeniCommand, EFDeleteMenicommand>();
 
+            var section = Configuration.GetSection("Email");
+
+            var sender =
+                new SmtpEmailSender(section["host"], Int32.Parse(section["port"]), section["fromaddress"], section["password"]);
+
+            services.AddSingleton<IEmailSender>(sender);
+
+
+
+
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IAuthUserCommand, EFAuthUserCommand>();
-
+            
             var key = Configuration.GetSection("Encryption")["key"];
             var enc = new Encryption(key);
             services.AddSingleton(enc);

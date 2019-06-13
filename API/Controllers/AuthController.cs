@@ -29,7 +29,7 @@ namespace API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] UserAuthDTO request)
         {
-            //ovde ide logovanje korisnika
+            
             var user = _authUserCommand.Execute(request);
 
             var stringObjekat = JsonConvert.SerializeObject(user);
