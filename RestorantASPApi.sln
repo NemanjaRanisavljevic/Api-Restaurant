@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFDataAccess", "EFDataAcces
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{C08EFEE4-E4C4-4897-8563-2B0761F30D0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{647D983B-1627-43CC-8E3A-EFCE421F8F03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{647D983B-1627-43CC-8E3A-EFCE421F8F03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{67CC2372-1B16-46B8-B632-C42B3224B215}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,12 +43,17 @@ Global
 		{647D983B-1627-43CC-8E3A-EFCE421F8F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{647D983B-1627-43CC-8E3A-EFCE421F8F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{647D983B-1627-43CC-8E3A-EFCE421F8F03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67CC2372-1B16-46B8-B632-C42B3224B215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67CC2372-1B16-46B8-B632-C42B3224B215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67CC2372-1B16-46B8-B632-C42B3224B215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67CC2372-1B16-46B8-B632-C42B3224B215}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{647D983B-1627-43CC-8E3A-EFCE421F8F03} = {32A64B3F-D892-405E-BE8F-D9766F113016}
+		{67CC2372-1B16-46B8-B632-C42B3224B215} = {32A64B3F-D892-405E-BE8F-D9766F113016}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E709541E-C462-4D54-BB4C-8E983149FB6F}

@@ -17,6 +17,7 @@ namespace Application.DTO
         [Required(ErrorMessage = "Surname is required!")]
         public string Surname { get; set; }
         [Required(ErrorMessage = "Email is required!")]
+        [EmailAddress(ErrorMessage ="Email nije u dobrom formatu")]
         public string Email { get; set; }
         
         [MinLength(6, ErrorMessage = "Too less charachters for password, 6 is min!")]

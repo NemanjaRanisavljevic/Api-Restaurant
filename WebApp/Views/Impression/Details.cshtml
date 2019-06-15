@@ -1,0 +1,48 @@
+﻿@model Application.DTO.ImpressionDTO
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+@if (Model != null)
+{
+    <div>
+        <h4>ImpressionDTO</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Content)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Content)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UserId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UserId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NameSurname)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NameSurname)
+            </dd>
+        </dl>
+    </div>
+}else
+{
+    <hi1>Utisak koji trazite ne postoji!</hi1>
+}
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id  }) |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -16,27 +16,28 @@ namespace EFCommands.EFImpressionCommand
         {
         }
 
-        public IEnumerable<ImpressionDTO> Execute(int id)
+        public ImpressionDTO Execute(int id)
         {
-            var query = _context.Impressions.AsQueryable();
+            var obj = _context.Impressions.Find(id);
 
-            if(_context.Impressions.Any(i => i.Id == id))
-            {
-                query = query.Where(i => i.Id == id);
-            }else
+            if (obj == null)
             {
                 throw new NotFoundException();
             }
 
+            var user = _context.Users.Find(obj.UserId);
 
-            return query.Include(u => u.User)
-                .Select(i => new ImpressionDTO {
-                    Id = i.Id,
-                    Content = i.Content,
-                    UserId = i.UserId,
-                    NameSurname = i.User.Name + " " + i.User.Surname
-                });
+            
 
+            return new ImpressionDTO
+            {
+                Id = obj.Id,
+                Content = obj.Content,
+                UserId = obj.UserId,
+                NameSurname = user.Name + " " + user.Surname
+            };
+            
+            
         }
     }
 }

@@ -29,8 +29,9 @@ namespace API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] UserAuthDTO request)
         {
-            
+
             var user = _authUserCommand.Execute(request);
+
 
             var stringObjekat = JsonConvert.SerializeObject(user);
 

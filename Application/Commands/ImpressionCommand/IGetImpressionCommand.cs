@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.Commands.ImpressionCommand
 {
-    public interface IGetImpressionCommand : ICommand<int,IEnumerable<ImpressionDTO>>
+    public interface IGetImpressionCommand : ICommand<int,ImpressionDTO>
     {
     }
 }

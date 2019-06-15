@@ -28,7 +28,7 @@ namespace EFCommands.EFUserCommand
                 Name = u.Name,
                 Surname = u.Surname,
                 RoleName = u.Role.NameRole
-                 
+
             });
         }
     }

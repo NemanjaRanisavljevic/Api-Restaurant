@@ -76,12 +76,12 @@ namespace API.Controllers
         {
             try
             {
-                
+                _addUserCommand.Execute(request);
                 _sender.Subject = "Uspesno ste se registrovali";
                 _sender.ToEmail = request.Email;
                 _sender.Body = "Dobrodosli na Api restorana Pulse sada imate mogucnost da upisete Vas utisak ako ste nas posetili, ako niste sta cekate trk na rezervaciju vase dorucka,rucka ili romanticke vecere. Vidimo se!";
                 _sender.Send();
-                _addUserCommand.Execute(request);
+                
                 return StatusCode(201, "User is succefuly create.");
             }
             catch(NotFoundException)

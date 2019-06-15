@@ -18,7 +18,11 @@ namespace EFCommands.EFImpressionCommand
 
         public void Execute(ImpressionDTO request)
         {
-            if(_context.Users.Any(u => u.Id != request.UserId))
+            if (_context.Users.Any(u => u.Id == request.UserId))
+            {
+
+            }
+            else
             {
                 throw new NotFoundException();
             }

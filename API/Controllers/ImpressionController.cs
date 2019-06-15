@@ -38,7 +38,7 @@ namespace API.Controllers
 
 
         // GET: api/Impression
-        [LoggedIn("Admin")]
+        
         [HttpGet]
         public IActionResult Get([FromQuery] ImpressSearch request)
         {
