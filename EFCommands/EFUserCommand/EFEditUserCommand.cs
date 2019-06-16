@@ -26,7 +26,7 @@ namespace EFCommands.EFUserCommand
 
             if(request.Email != null)
             {
-                if(_context.Users.Any(u => u.Email != request.Email))
+                if(!_context.Users.Any(u => u.Email == request.Email))
                 {
                     user.Email = request.Email;
                 }

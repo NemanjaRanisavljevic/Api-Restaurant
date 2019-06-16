@@ -25,7 +25,7 @@ namespace EFCommands.EFReservationCommand
 
             
             
-            if(_context.Users.Any(u => u.Id != request.UserId))
+            if(!_context.Users.Any(u => u.Id == request.UserId))
             {
                 throw new NotFoundException();
             }

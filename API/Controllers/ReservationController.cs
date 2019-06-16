@@ -36,7 +36,7 @@ namespace API.Controllers
 
         // GET: api/Reservation
         [HttpGet]
-        public IActionResult Get([FromQuery] ReservationSearch request)
+        public ActionResult<IEnumerable<ReservationGetDTO>> Get([FromQuery] ReservationSearch request)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace API.Controllers
 
         // GET: api/Reservation/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<IEnumerable<ReservationGetDTO>> Get(int id)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace API.Controllers
 
         // POST: api/Reservation
         [HttpPost]
-        public IActionResult Post([FromBody] ReservationDTO value)
+        public ActionResult Post([FromBody] ReservationDTO value)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace API.Controllers
 
         // PUT: api/Reservation/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] ReservationEditDTO value)
+        public ActionResult Put(int id, [FromBody] ReservationEditDTO value)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace API.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {

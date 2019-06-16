@@ -40,7 +40,7 @@ namespace API.Controllers
         // GET: api/Impression
         
         [HttpGet]
-        public IActionResult Get([FromQuery] ImpressSearch request)
+        public ActionResult<IEnumerable<ImpressionDTO>> Get([FromQuery] ImpressSearch request)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace API.Controllers
 
         // GET: api/Impression/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<ImpressionDTO> Get(int id)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace API.Controllers
 
         // POST: api/Impression
         [HttpPost]
-        public IActionResult Post([FromBody] ImpressionDTO value)
+        public ActionResult Post([FromBody] ImpressionDTO value)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace API.Controllers
 
         // PUT: api/Impression/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] ImpressionEditDTO value)
+        public ActionResult Put(int id, [FromBody] ImpressionEditDTO value)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace API.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {

@@ -26,7 +26,7 @@ namespace EFCommands.EFMeniCommand
 
             if (request.NameFood != null)
             {
-                if (_context.Menis.Any(m => m.NameFood != request.NameFood))
+                if (!_context.Menis.Any(m => m.NameFood == request.NameFood))
                 {
                     meni.NameFood = request.NameFood;
                 }

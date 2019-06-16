@@ -32,7 +32,7 @@ namespace API.Controllers
         
         // GET: api/Role
         [HttpGet]
-        public IActionResult GetRole([FromQuery] RuleSearch request)
+        public ActionResult<IEnumerable<RoleDTO>> GetRole([FromQuery] RuleSearch request)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace API.Controllers
 
         // GET: api/Role/5
         [HttpGet("{id}")]
-        public IActionResult GetRole(int id)
+        public ActionResult<IEnumerable<RoleDTO>> GetRole(int id)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace API.Controllers
 
         // POST: api/Role
         [HttpPost]
-        public IActionResult PostRole([FromBody] RoleDTO value)
+        public ActionResult PostRole([FromBody] RoleDTO value)
         {
 
             try
@@ -87,7 +87,7 @@ namespace API.Controllers
 
         // PUT: api/Role/5
         [HttpPut("{id}")]
-        public IActionResult PutRole(int id, [FromBody] RoleDTO value)
+        public ActionResult PutRole(int id, [FromBody] RoleDTO value)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace API.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteRole(int id)
+        public ActionResult DeleteRole(int id)
         {
             try
             {

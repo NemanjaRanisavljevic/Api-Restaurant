@@ -40,7 +40,7 @@ namespace API.Controllers
 
         // GET: api/User
         [HttpGet]
-        public IActionResult Get([FromQuery] UserSearch request)
+        public ActionResult<IEnumerable<UserOnlySearchDTO>> Get([FromQuery] UserSearch request)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace API.Controllers
 
         // GET: api/User/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<IEnumerable<UserOnlySearchDTO>> Get(int id)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace API.Controllers
 
         // POST: api/User UserDTO request
         [HttpPost]
-        public IActionResult Post([FromBody] UserDTO request)
+        public ActionResult Post([FromBody] UserDTO request)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace API.Controllers
 
         // PUT: api/User/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] UserSearchDTO value)
+        public ActionResult Put(int id, [FromBody] UserSearchDTO value)
         {
             try
             {
@@ -122,7 +122,7 @@ namespace API.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {

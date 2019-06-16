@@ -27,12 +27,13 @@ namespace EFCommands.EFMealCommand
 
             if(request.Name != null)
             {
-                if(search.Name == request.Name || _context.Meals.Any(m => m.Name == request.Name))
-                {
-                    throw new AlredyExistException();
-                }else
+                if(!_context.Meals.Any(m => m.Name == request.Name))
                 {
                     search.Name = request.Name;
+                    
+                }else
+                {
+                    throw new AlredyExistException();
                 }
             }
 
@@ -41,9 +42,6 @@ namespace EFCommands.EFMealCommand
                 if(search.Start != request.Start)
                 {
                     search.Start = request.Start;
-                }else
-                {
-                    throw new AlredyExistException();
                 }
 
             }
@@ -54,11 +52,7 @@ namespace EFCommands.EFMealCommand
                 {
                     search.Finish = request.Finish;
                 }
-                else
-                {
-                    throw new AlredyExistException();
-                }
-
+                
             }
 
             if (search.IsDeleted != request.IsDeleted)

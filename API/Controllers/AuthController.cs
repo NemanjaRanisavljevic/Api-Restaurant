@@ -28,7 +28,7 @@ namespace API.Controllers
         
         // POST: api/Auth
         [HttpPost]
-        public IActionResult Post([FromBody] UserAuthDTO request)
+        public ActionResult Post([FromBody] UserAuthDTO request)
         {
 
             var user = _authUserCommand.Execute(request);
@@ -44,7 +44,7 @@ namespace API.Controllers
         public IActionResult Decode(string value)
         {
             var decodedString = _enc.DecryptString(value);
-            decodedString = decodedString.Replace("\u0006", "");
+            decodedString = decodedString.Replace("\u000e", "");
             var user = JsonConvert.DeserializeObject<LoggedUser>(decodedString);
 
             return null;

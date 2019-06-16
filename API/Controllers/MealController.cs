@@ -36,7 +36,7 @@ namespace API.Controllers
 
         // GET: api/Meal
         [HttpGet]
-        public IActionResult Get([FromQuery] MealSearch request)
+        public ActionResult<IEnumerable<MealGetDTO>> Get([FromQuery] MealSearch request)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace API.Controllers
 
         // GET: api/Meal/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<IEnumerable<MealGetDTO>> Get(int id)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace API.Controllers
 
         // POST: api/Meal
         [HttpPost]
-        public IActionResult Post([FromBody] MealCreateDTO value)
+        public ActionResult Post([FromBody] MealCreateDTO value)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace API.Controllers
 
         // PUT: api/Meal/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] MealGetDTO value)
+        public ActionResult Put(int id, [FromBody] MealGetDTO value)
         {
             try
             {
@@ -96,13 +96,13 @@ namespace API.Controllers
                 return NotFound();
             }catch(AlredyExistException)
             {
-                return StatusCode(422, "Any of parametars alredy exist");
+                return StatusCode(422, "Name alredy exist");
             }
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {

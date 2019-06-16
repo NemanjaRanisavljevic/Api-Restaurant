@@ -41,7 +41,7 @@ namespace API.Controllers
 
         // GET: api/Meni
         [HttpGet]
-        public IActionResult Get([FromQuery] MeniSearch request)
+        public ActionResult<IEnumerable<MeniGetDTO>> Get([FromQuery] MeniSearch request)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace API.Controllers
 
         // GET: api/Meni/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<IEnumerable<MeniGetDTO>> Get(int id)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace API.Controllers
 
         // POST: api/Meni
         [HttpPost]
-        public IActionResult Post([FromForm] HttpSlikaDTO p)
+        public ActionResult Post([FromForm] HttpSlikaDTO p)
         {
             
                 var ext = Path.GetExtension(p.Image.FileName); //daje ekstenziju .jpg
@@ -121,7 +121,7 @@ namespace API.Controllers
 
         // PUT: api/Meni/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromForm] HttpSlikaUpdateDTO p)
+        public ActionResult Put(int id, [FromForm] HttpSlikaUpdateDTO p)
         {
             var ext = Path.GetExtension(p.Image.FileName); //daje ekstenziju .jpg
 
@@ -168,7 +168,7 @@ namespace API.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {

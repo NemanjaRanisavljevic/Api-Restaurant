@@ -32,7 +32,7 @@ namespace API.Controllers
 
         // GET: api/Drink
         [HttpGet]
-        public IActionResult Get([FromQuery] DrinkSearch drinkSearch)
+        public ActionResult<IEnumerable<CreateDrinkDTO>> Get([FromQuery] DrinkSearch drinkSearch)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace API.Controllers
 
         // GET: api/Drink/5
         [HttpGet("{id}", Name = "Get")]
-        public IActionResult Get(int id)
+        public ActionResult<IEnumerable<CreateDrinkDTO>> Get(int id)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace API.Controllers
 
         // POST: api/Drink
         [HttpPost]
-        public IActionResult Post([FromBody] CreateDrinkDTO value)
+        public ActionResult Post([FromBody] CreateDrinkDTO value)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace API.Controllers
 
         // PUT: api/Drink/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id,[FromBody] CreateDrinkDTO value)
+        public ActionResult Put(int id,[FromBody] CreateDrinkDTO value)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace API.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             try
             {
