@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,5 +14,7 @@ namespace Application.DTO.MeniDTO
         public string FileName { get; set; }
         public string MealName { get; set; }
         public string Alt { get; set; }
+
+        
     }
 }

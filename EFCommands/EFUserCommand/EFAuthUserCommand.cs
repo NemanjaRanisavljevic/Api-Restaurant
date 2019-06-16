@@ -1,7 +1,9 @@
 ﻿using Application.Commands.UserCommand;
 using Application.DTO;
+using Application.Exceptions;
 using Application.Helpers;
 using EFDataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,21 +17,26 @@ namespace EFCommands.EFUserCommand
         {
         }
 
-        public IEnumerable<LoggedUser> Execute(UserAuthDTO request)
+        public LoggedUser Execute(UserAuthDTO request)
         {
-            var query = _context.Users.AsQueryable();
+            var user = _context.Users
+                 .Include(u => u.Role)
+                 .Where(u => u.Email == request.Email)
+                 .Where(u => u.Password == request.Password)
+                 .FirstOrDefault();
 
-            query = query.Where(u => u.Email == request.Email && u.Password == request.Password);
-
-            return query.Select(u => new LoggedUser
+            if(user == null)
             {
-                Id = u.Id,
-                Email = u.Email,
-                Name = u.Name,
-                Surname = u.Surname,
-                RoleName = u.Role.NameRole
-
-            });
+                throw new NotFoundException();
+            }
+            return new LoggedUser
+            {
+                Id = user.Id,
+                 Name = user.Name,
+                  Surname = user.Surname,
+                   Email = user.Email,
+                    RoleName = user.Role.NameRole
+            };
         }
     }
 }

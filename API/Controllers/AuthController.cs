@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using API.ForEncript;
 using Application.Commands.UserCommand;
 using Application.DTO;
@@ -31,8 +32,7 @@ namespace API.Controllers
         {
 
             var user = _authUserCommand.Execute(request);
-
-
+           
             var stringObjekat = JsonConvert.SerializeObject(user);
 
             var encrypted = _enc.EncryptString(stringObjekat);
@@ -44,7 +44,7 @@ namespace API.Controllers
         public IActionResult Decode(string value)
         {
             var decodedString = _enc.DecryptString(value);
-            decodedString = decodedString.Replace("\t","");
+            decodedString = decodedString.Replace("\u0006", "");
             var user = JsonConvert.DeserializeObject<LoggedUser>(decodedString);
 
             return null;

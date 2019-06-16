@@ -7,11 +7,13 @@ using API.HTTPDTO;
 using Application.Commands.MealCommand;
 using Application.Commands.MeniCommand;
 using Application.DTO.MeniDTO;
+using Application.DTO.WebDTO;
 using Application.Exceptions;
 using Application.Helpers;
 using Application.Searches;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace WebApp.Controllers
 {
@@ -24,9 +26,10 @@ namespace WebApp.Controllers
         private IDeleteMeniCommand _deleteMeniCommand;
         private IGetAllMeniesCommandWeb _getAllMeniesCommandWeb;
         private IGetMeniWebCommand _getOneMeniCommand;
-        
+        private IGetEditMeniCommand _getEditMeniCommand;
+        private IGetWebMealsCommand _getWebMeals;
 
-        public MeniController(IAddMeniCommand addMeniCommand, IGetMeniCommand getMeniCommand, IGetMeniesCommand getMeniesCommand, IEditMeniCommand editMeniCommand, IDeleteMeniCommand deleteMeniCommand, IGetAllMeniesCommandWeb getAllMeniesCommandWeb, IGetMeniWebCommand getOneMeniCommand, IGetMealsCommand getMealsCommand)
+        public MeniController(IAddMeniCommand addMeniCommand, IGetMeniCommand getMeniCommand, IGetMeniesCommand getMeniesCommand, IEditMeniCommand editMeniCommand, IDeleteMeniCommand deleteMeniCommand, IGetAllMeniesCommandWeb getAllMeniesCommandWeb, IGetMeniWebCommand getOneMeniCommand, IGetEditMeniCommand getEditMeniCommand, IGetWebMealsCommand getWebMeals)
         {
             _addMeniCommand = addMeniCommand;
             _getMeniCommand = getMeniCommand;
@@ -35,7 +38,8 @@ namespace WebApp.Controllers
             _deleteMeniCommand = deleteMeniCommand;
             _getAllMeniesCommandWeb = getAllMeniesCommandWeb;
             _getOneMeniCommand = getOneMeniCommand;
-            
+            _getEditMeniCommand = getEditMeniCommand;
+            _getWebMeals = getWebMeals;
         }
 
 
@@ -59,7 +63,6 @@ namespace WebApp.Controllers
                 return NotFound();
             }
             
-
         }
 
         // GET: Meni/Create
@@ -123,25 +126,58 @@ namespace WebApp.Controllers
         }
 
         // GET: Meni/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, ClassForNullObj request)
         {
-            return View();
+            var obj = _getEditMeniCommand.Execute(id);
+            
+            return View(obj);
         }
 
         // POST: Meni/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id,[FromForm] HttpEditMeni p)
         {
+            var ext = Path.GetExtension(p.Image.FileName); //daje ekstenziju .jpg
+
+            if (!FileUpload.AllowExtensions.Contains(ext))
+            {
+                return UnprocessableEntity("Image extension is not allowed.");
+            }
+
             try
             {
-                // TODO: Add update logic here
+                var newFileName = Guid.NewGuid().ToString() + "_" + p.Image.FileName;//unique za ime fajla
 
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", newFileName);
+
+                p.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+
+
+                var dto = new MeniAddDTO
+                {
+                    Id = p.Id,
+                    NameFood = p.NameFood,
+                    Ingradiant = p.Ingradiant,
+                    FileName = newFileName,
+                    Price = p.Price,
+                    MealId = p.MealId
+                };
+
+                _editMeniCommand.Execute(dto);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (NotFoundException)
             {
-                return View();
+                return StatusCode(404, "Meal id not found or id of meni");
+            }
+            catch (AlredyExistException)
+            {
+                return StatusCode(422, "Name of food alredy exist");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Server error try later");
             }
         }
 

@@ -43,3 +43,4 @@ C:\Users\User\source\repos\RestorantASPApi\WebApp\obj\Debug\netcoreapp2.2\Razor\
 C:\Users\User\source\repos\RestorantASPApi\WebApp\obj\Debug\netcoreapp2.2\Razor\Views\Meni\Index.g.cshtml.cs
 C:\Users\User\source\repos\RestorantASPApi\WebApp\obj\Debug\netcoreapp2.2\Razor\Views\Meni\Details.g.cshtml.cs
 C:\Users\User\source\repos\RestorantASPApi\WebApp\obj\Debug\netcoreapp2.2\Razor\Views\Meni\Create.g.cshtml.cs
+C:\Users\User\source\repos\RestorantASPApi\WebApp\obj\Debug\netcoreapp2.2\Razor\Views\Meni\Edit.g.cshtml.cs

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Application.Commands.UserCommand
 {
-    public interface IAuthUserCommand : ICommand<UserAuthDTO, IEnumerable<LoggedUser>>
+    public interface IAuthUserCommand : ICommand<UserAuthDTO, LoggedUser>
     {
     }
 }

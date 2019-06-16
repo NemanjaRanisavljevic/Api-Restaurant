@@ -59,6 +59,9 @@ namespace WebApp
             services.AddTransient<IGetAllMeniesCommandWeb, EFGetAllMeniesCommandWeb>();
             services.AddTransient<IGetMeniWebCommand, EFGetMeniWebCommand>();
             services.AddTransient<IGetMealsCommand, EFGetMealsCommand>();
+            services.AddTransient<IGetEditMeniCommand, EFGetEditMeniCommand>();
+            services.AddTransient<IGetWebMealsCommand, EFGetWebMealsCommand>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

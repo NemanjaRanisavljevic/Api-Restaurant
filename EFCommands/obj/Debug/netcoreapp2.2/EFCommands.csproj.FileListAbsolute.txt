@@ -14,3 +14,5 @@ C:\Users\User\source\repos\RestorantASPApi\EFCommands\bin\Debug\netcoreapp2.2\Do
 C:\Users\User\source\repos\RestorantASPApi\EFCommands\obj\Debug\netcoreapp2.2\EFCommands.csproj.CopyComplete
 C:\Users\User\source\repos\RestorantASPApi\EFCommands\obj\Debug\netcoreapp2.2\EFCommands.dll
 C:\Users\User\source\repos\RestorantASPApi\EFCommands\obj\Debug\netcoreapp2.2\EFCommands.pdb
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\User\source\repos\RestorantASPApi\EFCommands\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Http.Features.xml
